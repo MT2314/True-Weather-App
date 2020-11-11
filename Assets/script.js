@@ -135,4 +135,162 @@ $(document).ready(function () {
             alert('Please enter a City');
         }
     };
+
+    // Weather Elements
+    // City Data Request -- Open Weather API
+    var getCityWeather = function (city) {
+        var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=ba74bedfc46d79d1a8bc03cbde9297ec&units=metric';
+        // Today's Weather Dom
+        var cityName = document.getElementById('cityName');
+        var nowDegree = document.getElementById('nowDegree');
+        var nowWeather = document.getElementById('nowWeather');
+        var windEl = document.getElementById('wind');
+        var humidityEl = document.getElementById('humidity');
+        // Data Request
+        fetch(apiUrl)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (data) {
+                        console.log(data);
+                        todayTemp = (JSON.stringify(data.main.temp)).slice(0, -1);
+                        todayWind = (JSON.stringify(data.wind.speed)).slice(0, -1);
+                        todayHumidity = (JSON.stringify(data.main.humidity));
+                        nowWeather = (JSON.stringify(data.weather[0].main));
+                        console.log(nowWeather);
+                        recordWeather(data, nowWeather, todayTemp, todayWind, todayHumidity);
+                    });
+                } else {
+                    alert('Error: ' + response.statusText);
+                }
+            })
+            .catch(function (error) {
+                alert('Unable to connect to GitHub');
+            });
+
+        // Local Storage//Record Todays Weather
+        var recordWeather = function (data, nowWeather, todayTemp, todayWind, todayHumidity) {
+            localStorage.setItem("weatherDescription", nowWeather)
+            localStorage.setItem("city", city);
+            localStorage.setItem("todayTemp", todayTemp);
+            localStorage.setItem("todayWind", todayWind);
+            localStorage.setItem("todayHumidity", todayHumidity);
+            var m = moment().format('M/D/YYYY');
+            var mInt = m.split("/");
+            console.log(m);
+            console.log(mInt);
+            // localStorage.setItem("todayUVIndex", todayUVIndex);
+
+            displayTodayWeather(m);
+        };
+
+        // Display Todays Weather
+        var displayTodayWeather = function (m) {
+            var name = localStorage.getItem("city");
+            cityName.textContent = name + "\xa0" + m;
+            var Ttemp = localStorage.getItem("todayTemp" + '&deg;');
+            nowDegree.textContent = Ttemp;
+            var weatherInfo = localStorage.getItem("weatherDescription");
+            nowWeather.textContent = weatherInfo;
+            var windT = localStorage.getItem("todayWind");
+            windEl.textContent = windT;
+            var humiditT = localStorage.getItem("todayHumidity");
+            humidityEl.textContent = humiditT;
+        };
+
+        // 5 Day Weather
+        // Today's Weather Dom
+        var fivecityName = document.getElementById('cityName');
+        var fivenowDegree = document.getElementById('nowDegree');
+        var fivenowWeather = document.getElementById('nowWeather');
+        var fivewindEl = document.getElementById('wind');
+        var fivehumidityEl = document.getElementById('humidity');
+        // 5 Day forecast API
+        var fiveapiUrl = 'http://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=ba74bedfc46d79d1a8bc03cbde9297ec&units=metric';
+
+        fetch(fiveapiUrl)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (data) {
+                        console.log(data);
+                        var fiveTemp = [];
+                        var fiveHumidity = [];
+                        var fiveWeather = [];
+                        for (var i = 0; i < 5; i++) {
+                            fiveTemp[i] = (JSON.stringify(data.list[i].main.temp)).slice(0, -1);
+                            fiveHumidity[i] = (JSON.stringify(data.list[i].main.humidity));
+                            fiveWeather[i] = (JSON.stringify(data.list[i].weather[0].main));
+                        };
+                        recordFiveWeather(data, fiveTemp, fiveHumidity, fiveWeather);
+                    });
+                } else {
+                    alert('Error: ' + response.statusText);
+                }
+            })
+            .catch(function (error) {
+                alert('Unable to connect to GitHub');
+            });
+
+        // Local Storage//Record 5-Days Weather
+        var recordFiveWeather = function (data, fiveTemp, fiveHumidity, fiveWeather) {
+            for (var i = 0; i < 5; i++) {
+                localStorage.setItem("fiveTemp" + i, fiveTemp[i]);
+                localStorage.setItem("fiveHumidity" + i, fiveHumidity[i]);
+                localStorage.setItem("weatherDescription" + i, fiveWeather[i])
+                var m = moment().format('M/D/YYYY');
+            }
+            displayFiveWeather(m);
+        };
+
+        // Dom Selection
+        var fiveTemp = document.getElementsByClassName('fiveTemp');
+        var fiveHumidity = document.getElementsByClassName('fiveHumidity');
+        var fiveWeatherIcon = document.getElementsByClassName('fiveWeatherIcon');
+
+
+
+        // Display Five Day Weather
+        var displayFiveWeather = function (m) {
+
+            var fiveCardsCont = document.getElementById('fiveCardsCont');
+            fiveCardsCont.innerHTML = "";
+            
+            for (var i = 0; i < 5; i++) {
+                
+                var div = $("<div>")
+                var iconCont = $("<div>")
+                var temp = $("<p>")
+                var humidity = $("<span>")
+                var icon = $("<i>")
+                var iconWeather = localStorage.getItem("weatherDescription" + i);
+                var icon;
+                // Make Card
+                div.addClass('weather card');
+                div.appendTo(fiveCardsCont);
+                // Date
+                $("<p>").text(m).appendTo(div);
+                iconCont.appendTo(div);
+                // Weather Icon
+                icon.appendTo(iconCont);
+                if (iconWeather == '"Clear"') {
+                    icon.addClass("fas fa-sun");
+                } else if (iconWeather == '"Clouds"') {
+                    icon.addClass("fas fa-cloud");
+                } else if (iconWeather == '"Rain"') {
+                    icon.addClass("fas fa-cloud-rain");
+                };
+
+                // Temperature;
+                var fiveT = localStorage.getItem("fiveTemp" + i);
+                console.log(fiveT);
+                temp.text(fiveT);
+                temp.appendTo(div);
+
+                // Humidity;
+                var fiveH = localStorage.getItem("fiveHumidity" + i);
+                humidity.text(fiveH);
+                humidity.appendTo(div);
+            }
+        };
+    };
+    formEl.addEventListener('submit', formSubmitHandler);
 });

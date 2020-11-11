@@ -1,0 +1,83 @@
+/* Header */
+.navbar-brand {
+    color: #ffffff;
+    text-align: center;
+    width:100%;
+    font-size: 36px;
+    font-weight: 500;
+}
+
+/* Row 1 */
+.row-1{
+    height:75vh;
+
+}
+/* Side Bar */
+.popcity{
+    text-align: center;
+}
+.wrapper {
+    position: relative;
+    display: flex;
+    top: 10vh;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+}
+
+/* Today's Weather */
+
+.todayWeather{
+    position: relative;
+    left:10vw;
+    top:10vh;
+}
+
+
+.weather {
+    width: 77%
+}
+
+
+
+@media(max-width:767px) {
+    .weather {
+        width: 100%
+    }
+}
+
+.icon {
+
+    height: 3.5%;
+    overflow: visible;
+    
+}
+
+
+
+
+ /* Row 2 */
+.row-2{
+    height:5vh;
+}
+
+/* 5 Day Weather */
+.weather{
+    top:10vh;
+    
+    width:15vw;
+}
+
+#fiveWCards{
+
+    
+}
+
+.copy{
+    display:block!important;
+} 
