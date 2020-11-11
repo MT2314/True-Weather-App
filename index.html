@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,15 +16,97 @@
 
     <title>True Weather App</title>
 </head>
+
 <body>
 
+    <header>
+        <div class="navbar navbar-dark bg-dark">
+            <div class="navbar-brand">True Weather</div>
+        </div>
+    </header>
 
 
+    <!-- Container -->
+    <div class="container">
+        <!--ROW-->
+        <div class="row row-1">
+            <div class="col-3-md">
+                <div class="wrapper mt-4">
+                    <!-- Sidebar -->
+                    <nav id="sidebar">
+                        <div class="sidebar-header">
+                            <h4>Search for a city:</h4>
+                        </div>
+                        <!-- Search form -->
+                        <form class="form-inline justify-content-center" id="formEl">
+                            <input class="form-control form-control-sm" type="text" placeholder="Search"
+                                aria-label="Search" id="citySearch">
+                            <button type="submit"> <i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
+                        <ul class="list-unstyled mt-4 popcity" id="cityList">
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Today's Weather -->
+            <!-- 
+
+             -->
+            <div class="col-9-md todayWeather">
+                <!-- Card -->
+                <div class="card weather-card">
+                    <!-- Card content -->
+                    <div class="card-body pb-3">
+
+                        <!-- Title -->
+                        <h4 class="card-title font-weight-bold" id="cityName"></h4>
+                        <!-- Text -->
+                        <p class="card-text"></p>
+                        <div class="flex justify-content-between ">
+                            <p class="display-3 nowDegree" id="nowDegree"></p>
+                            
+                            <p><i class="fas fa-leaf fa-lg grey-text pr-2"></i><span id="wind"></span> km/h &nbsp Winds
+                            </p>
+                            <p class="mr-1"><i class="fa fa-water fa-lg grey-text pr-2 "></i><span class=" "
+                                    id="humidity"></span>% Humidity</p>
+                            <p><i class="fa fa-sun fa-lg grey-text pr-2 "></i><span class="uvIndex"
+                                    id="uvIndex"></span>U/V Index</p>
+                        </div>
+                        <div class="progress md-progress">
+                            <div class="progress-bar black" role="progressbar" style="width: 50%" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
+                        <ul class="list-unstyled d-flex justify-space-between font-small text-muted mb-4">
+                            <li class="pl-4">8AM</li>
+                            <li>11AM</li>
+                            <li>2PM</li>
+                            <li>5PM</li>
+                            <li class="pr-4">8PM</li>
+                        </ul>
 
 
-    
-        <!-- JQuery Script -->
-        <script src="https://code.jquery.com/jquery-2.2.4.js"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5 DAY FORECAST ROW-->
+        <div class="row row-2">
+            <div class="col-md-12">
+
+                <!-- CARDS -->
+                <div class="container d-flex justify-content-center fiveCardsCont " id="fiveCardsCont">
+                        <!-- Dynamic 5 Weather Cards -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JQuery Script -->
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
         integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <!-- Moment -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -37,4 +120,5 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 </body>
+
 </html>
