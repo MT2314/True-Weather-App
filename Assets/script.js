@@ -55,7 +55,7 @@ $(document).ready(function () {
     // Weather Elements
     // City Data Request -- Open Weather API
     var getCityWeather = function (city) {
-        var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=ba74bedfc46d79d1a8bc03cbde9297ec&units=metric';
+        var apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=ba74bedfc46d79d1a8bc03cbde9297ec&units=metric';
         // Today's Weather Dom
         var tempEl = document.getElementById('temp');
         var cityName = document.getElementById('cityName');
@@ -142,7 +142,7 @@ $(document).ready(function () {
         var fivewindEl = document.getElementById('wind');
         var fivehumidityEl = document.getElementById('humidity');
         // 5 Day forecast API
-        var fiveapiUrl = 'http://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=ba74bedfc46d79d1a8bc03cbde9297ec&units=metric';
+        var fiveapiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=ba74bedfc46d79d1a8bc03cbde9297ec&units=metric';
 
         fetch(fiveapiUrl)
             .then(function (response) {
