@@ -185,6 +185,8 @@ $(document).ready(function () {
 
         // Display Todays Weather
         var displayTodayWeather = function (m) {
+            var todayWeather = document.getElementById('todayWeather');
+            todayWeather.style.display = "block";
             var name = localStorage.getItem("city");
             cityName.textContent = name + "\xa0" + m;
             var Ttemp = localStorage.getItem("todayTemp" + '&deg;');
@@ -195,6 +197,7 @@ $(document).ready(function () {
             windEl.textContent = windT;
             var humiditT = localStorage.getItem("todayHumidity");
             humidityEl.textContent = humiditT;
+
         };
 
         // 5 Day Weather
@@ -267,27 +270,29 @@ $(document).ready(function () {
                 div.addClass('weather card');
                 div.appendTo(fiveCardsCont);
                 // Date
+                m = moment().add(i,'days').format('M/D/YYYY');
+                
                 $("<p>").text(m).appendTo(div);
                 iconCont.appendTo(div);
                 // Weather Icon
                 icon.appendTo(iconCont);
                 if (iconWeather == '"Clear"') {
-                    icon.addClass("fas fa-sun");
+                    icon.addClass("fas fa-sun fa-3x");
                 } else if (iconWeather == '"Clouds"') {
-                    icon.addClass("fas fa-cloud");
+                    icon.addClass("fas fa-cloud fa-3x");
                 } else if (iconWeather == '"Rain"') {
-                    icon.addClass("fas fa-cloud-rain");
+                    icon.addClass("fas fa-cloud-rain fa-3x");
                 };
 
                 // Temperature;
                 var fiveT = localStorage.getItem("fiveTemp" + i);
-                console.log(fiveT);
-                temp.text(fiveT);
+                temp.text("Temperature:" + fiveT);
+                temp.addClass("mt-3");
                 temp.appendTo(div);
 
                 // Humidity;
                 var fiveH = localStorage.getItem("fiveHumidity" + i);
-                humidity.text(fiveH);
+                humidity.text("Humidity:" + fiveH);
                 humidity.appendTo(div);
             }
         };

@@ -32,15 +32,16 @@
 
 /* Today's Weather */
 
-.todayWeather{
+#todayWeather{
     position: relative;
-    left:10vw;
-    top:10vh;
+    display: none;
+    left:20%;
+    top: 20%;
 }
 
 
 .weather {
-    width: 77%
+    width: 77%;
 }
 
 
@@ -51,33 +52,7 @@
     }
 }
 
-.icon {
-
-    height: 3.5%;
-    overflow: visible;
-    
-}
 
 
 
 
- /* Row 2 */
-.row-2{
-    height:5vh;
-}
-
-/* 5 Day Weather */
-.weather{
-    top:10vh;
-    
-    width:15vw;
-}
-
-#fiveWCards{
-
-    
-}
-
-.copy{
-    display:block!important;
-} 
