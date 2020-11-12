@@ -141,6 +141,7 @@ $(document).ready(function () {
     var getCityWeather = function (city) {
         var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=ba74bedfc46d79d1a8bc03cbde9297ec&units=metric';
         // Today's Weather Dom
+        var tempEl = document.getElementById('temp');
         var cityName = document.getElementById('cityName');
         var nowDegree = document.getElementById('nowDegree');
         var nowWeather = document.getElementById('nowWeather');
@@ -179,32 +180,37 @@ $(document).ready(function () {
             console.log(m);
             console.log(mInt);
             // localStorage.setItem("todayUVIndex", todayUVIndex);
-
+            var todayIcon = document.getElementById("todayIcon");
+            todayIcon.innerHTML = "";
             displayTodayWeather(m);
         };
 
         // Display Todays Weather
         var displayTodayWeather = function (m) {
-            // var todayIcon = localStorage.getItem("todayIcon");
-            // var ticonCont = $("<div>");
-            // var ticon = $("<i>");
-            // ticonCont.appendTo(todayIcon);
-            // ticon.appendTo(ticonCont);
-            // if (iconWeather == '"Clear"') {
-            //     ticon.addClass("fas fa-sun fa-3x");
-            // } else if (iconWeather == '"Clouds"') {
-            //     ticon.addClass("fas fa-cloud fa-3x");
-            // } else if (iconWeather == '"Rain"') {
-            //     ticon.addClass("fas fa-cloud-rain fa-3x");
-            // };
+            // var todayIcon = document.getElementById("todayIcon");
+            var iconSet = localStorage.getItem("weatherDescription");
+            console.log(iconSet);
+            var ticon = $("<i>");
+            var par = $("<p>");
+            par.appendTo(todayIcon);
+            par.text(iconSet.replace(/['"]+/g, ''));
+            ticon.appendTo(par);
+               if (iconSet == '"Clear"') {
+                ticon.addClass("fas fa-sun fa-3x center");
+            } else if (iconSet == '"Mist"') {
+                ticon.addClass("fas fa-shower fa-3x center");
+            } else if (iconSet == '"Clouds"') {
+                ticon.addClass("fas fa-cloud fa-3x center");
+            } else if (iconSet == '"Rain"') {
+                ticon.addClass("fas fa-cloud-rain fa-3x center");
+            };
+
             var todayWeather = document.getElementById('todayWeather');
             todayWeather.style.display = "block";
             var name = localStorage.getItem("city");
             cityName.textContent = name + "\xa0" + m;
-            var Ttemp = localStorage.getItem("todayTemp" + '&deg;');
-            nowDegree.textContent = Ttemp;
-            var weatherInfo = localStorage.getItem("weatherDescription");
-            nowWeather.textContent = weatherInfo;
+            var Ttemp = localStorage.getItem("todayTemp");
+            tempEl.textContent = Ttemp;
             var windT = localStorage.getItem("todayWind");
             windEl.textContent = windT;
             var humiditT = localStorage.getItem("todayHumidity");
@@ -273,7 +279,7 @@ $(document).ready(function () {
                 
                 var div = $("<div>")
                 var iconCont = $("<div>")
-                var temp = $("<p>")
+                var tempP = $("<p>")
                 var humidity = $("<span>")
                 var icon = $("<i>")
                 var iconWeather = localStorage.getItem("weatherDescription" + i);
@@ -298,9 +304,9 @@ $(document).ready(function () {
 
                 // Temperature;
                 var fiveT = localStorage.getItem("fiveTemp" + i);
-                temp.text("Temperature:" + fiveT);
-                temp.addClass("mt-3");
-                temp.appendTo(div);
+                tempP.text("Temperature:" + fiveT);
+                tempP.addClass("mt-3");
+                tempP.appendTo(div);
 
                 // Humidity;
                 var fiveH = localStorage.getItem("fiveHumidity" + i);
