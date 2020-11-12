@@ -17,97 +17,13 @@ $(document).ready(function () {
     // Arrays
     var displayedCities = [
         "Beijing",
-        "Hong-Kong",
         "Madrid",
         "Moscow",
         "Paris",
         "Tokyo",
         "Toronto",
-        "Washington D.C"
-    ];
-
-    var suggestCitiesList = [
-        "Ahmedabad",
-        "Alexandria",
-        "Atlanta",
-        "Baghdad",
-        "Bangalore",
-        "Bangkok",
-        "Barcelona",
-        "Beijing",
-        "Belo Horizonte",
-        "Bogotá",
-        "Buenos Aires",
-        "Cairo",
-        "Chengdu",
-        "Chennai",
-        "Chicago",
-        "Chongqing",
-        "Dalian",
-        "Dallas",
-        "Dar es Salaam",
-        "Delhi",
-        "Dhaka",
-        "Dongguan",
-        "Foshan",
-        "Fukuoka",
-        "Guadalajara",
-        "Guangzhou",
-        "Hangzhou",
-        "Harbin",
-        "Ho Chi Minh City",
-        "Hong Kong",
-        "Houston",
-        "Hyderabad",
-        "Istanbul",
-        "Jakarta",
-        "Jinan",
-        "Johannesburg",
-        "Karachi",
-        "Khartoum",
-        "Kinshasa",
-        "Kolkata",
-        "Kuala Lumpur",
-        "Lagos",
-        "Lahore",
-        "Lima",
-        "London",
-        "Los Angeles",
-        "Luanda",
-        "Madrid",
-        "Manila",
-        "Mexico City",
-        "Miami",
-        "Moscow",
-        "Mumbai",
-        "Nagoya",
-        "Nanjing",
-        "New York City",
         "Osaka",
-        "Paris",
-        "Philadelphia",
-        "Pune",
-        "Qingdao",
         "Rio de Janeiro",
-        "Riyadh",
-        "Saint Petersburg",
-        "Santiago",
-        "São Paulo",
-        "Seoul",
-        "Shanghai",
-        "Shenyang",
-        "Shenzhen",
-        "Singapore",
-        "Surat",
-        "Suzhou",
-        "Tehran",
-        "Tianjin",
-        "Tokyo",
-        "Toronto",
-        "Washington, D.C.",
-        "Wuhan",
-        "Xi'an",
-        "Yangon"
     ];
 
     // Side Bar
@@ -117,7 +33,7 @@ $(document).ready(function () {
         cityEl.textContent = displayedCities[i];
         $(cityEl).addClass("list-group-item-action list-group-item-dark");
         cityList.appendChild(cityEl);
-        $(cityEl).on("click", function(e){
+        $(cityEl).on("click", function (e) {
             var cityChoiceBtn = $(e.target).text();
             console.log(cityChoiceBtn);
             getCityWeather(cityChoiceBtn);
@@ -195,7 +111,7 @@ $(document).ready(function () {
             par.appendTo(todayIcon);
             par.text(iconSet.replace(/['"]+/g, ''));
             ticon.appendTo(par);
-               if (iconSet == '"Clear"') {
+            if (iconSet == '"Clear"') {
                 ticon.addClass("fas fa-sun fa-3x center");
             } else if (iconSet == '"Mist"') {
                 ticon.addClass("fas fa-shower fa-3x center");
@@ -236,84 +152,96 @@ $(document).ready(function () {
                         var fiveTemp = [];
                         var fiveHumidity = [];
                         var fiveWeather = [];
-                        for (var i = 0; i < 5; i++) {
-                            fiveTemp[i] = (JSON.stringify(data.list[i].main.temp)).slice(0, -1);
+                        var weather = []
+                        for (var i = 0; i < 40; i++) {
+                            //     var averageTime = moment().add(i, 'days').format('YYYY-M-D');
+                            //     console.log(averageTime);
+
+                            //     weather = (JSON.stringify(data.list[i].dt_txt));
+                            //     console.log(weather);
+
+                            //     if (weather.indexOf(averageTime) >-1) {
+
+
+                            fiveTemp[i] = (JSON.stringify(data.list[i].main.temp).slice(0, -1));
+                            console.log(fiveTemp[i]);
                             fiveHumidity[i] = (JSON.stringify(data.list[i].main.humidity));
                             fiveWeather[i] = (JSON.stringify(data.list[i].weather[0].main));
                         };
+
                         recordFiveWeather(data, fiveTemp, fiveHumidity, fiveWeather);
-                    });
-                } else {
-                    alert('Error: ' + response.statusText);
-                }
+                });
+    } else {
+        alert('Error: ' + response.statusText);
+}
             })
-            .catch(function (error) {
-                alert('Unable to connect to GitHub');
-            });
+    .catch(function (error) {
+        alert('Unable to connect to GitHub');
+    });
 
-        // Local Storage//Record 5-Days Weather
-        var recordFiveWeather = function (data, fiveTemp, fiveHumidity, fiveWeather) {
-            for (var i = 0; i < 5; i++) {
-                localStorage.setItem("fiveTemp" + i, fiveTemp[i]);
-                localStorage.setItem("fiveHumidity" + i, fiveHumidity[i]);
-                localStorage.setItem("weatherDescription" + i, fiveWeather[i])
-                var m = moment().format('M/D/YYYY');
-            }
-            displayFiveWeather(m);
+// Local Storage//Record 5-Days Weather
+var recordFiveWeather = function (data, fiveTemp, fiveHumidity, fiveWeather) {
+    for (var i = 0; i < 5; i++) {
+        localStorage.setItem("fiveTemp" + i, fiveTemp[i]);
+        localStorage.setItem("fiveHumidity" + i, fiveHumidity[i]);
+        localStorage.setItem("weatherDescription" + i, fiveWeather[i])
+        var m = moment().format('M/D/YYYY');
+    }
+    displayFiveWeather(m);
+};
+
+// Dom Selection
+var fiveTemp = document.getElementsByClassName('fiveTemp');
+var fiveHumidity = document.getElementsByClassName('fiveHumidity');
+var fiveWeatherIcon = document.getElementsByClassName('fiveWeatherIcon');
+
+
+
+// Display Five Day Weather
+var displayFiveWeather = function (m) {
+
+    var fiveCardsCont = document.getElementById('fiveCardsCont');
+    fiveCardsCont.innerHTML = "";
+
+    for (var i = 0; i < 5; i++) {
+
+        var div = $("<div>")
+        var iconCont = $("<div>")
+        var tempP = $("<p>")
+        var humidity = $("<span>")
+        var icon = $("<i>")
+        var iconWeather = localStorage.getItem("weatherDescription" + i);
+        var icon;
+        // Make Card
+        div.addClass('weather card');
+        div.appendTo(fiveCardsCont);
+        // Date
+        m = moment().add(i, 'days').format('M/D/YYYY');
+
+        $("<p>").text(m).appendTo(div);
+        iconCont.appendTo(div);
+        // Weather Icon
+        icon.appendTo(iconCont);
+        if (iconWeather == '"Clear"') {
+            icon.addClass("fas fa-sun fa-3x");
+        } else if (iconWeather == '"Clouds"') {
+            icon.addClass("fas fa-cloud fa-3x");
+        } else if (iconWeather == '"Rain"') {
+            icon.addClass("fas fa-cloud-rain fa-3x");
         };
 
-        // Dom Selection
-        var fiveTemp = document.getElementsByClassName('fiveTemp');
-        var fiveHumidity = document.getElementsByClassName('fiveHumidity');
-        var fiveWeatherIcon = document.getElementsByClassName('fiveWeatherIcon');
+        // Temperature;
+        var fiveT = localStorage.getItem("fiveTemp" + i);
+        tempP.text("Temperature:" + fiveT);
+        tempP.addClass("mt-3");
+        tempP.appendTo(div);
 
-
-
-        // Display Five Day Weather
-        var displayFiveWeather = function (m) {
-
-            var fiveCardsCont = document.getElementById('fiveCardsCont');
-            fiveCardsCont.innerHTML = "";
-            
-            for (var i = 0; i < 5; i++) {
-                
-                var div = $("<div>")
-                var iconCont = $("<div>")
-                var tempP = $("<p>")
-                var humidity = $("<span>")
-                var icon = $("<i>")
-                var iconWeather = localStorage.getItem("weatherDescription" + i);
-                var icon;
-                // Make Card
-                div.addClass('weather card');
-                div.appendTo(fiveCardsCont);
-                // Date
-                m = moment().add(i,'days').format('M/D/YYYY');
-                
-                $("<p>").text(m).appendTo(div);
-                iconCont.appendTo(div);
-                // Weather Icon
-                icon.appendTo(iconCont);
-                if (iconWeather == '"Clear"') {
-                    icon.addClass("fas fa-sun fa-3x");
-                } else if (iconWeather == '"Clouds"') {
-                    icon.addClass("fas fa-cloud fa-3x");
-                } else if (iconWeather == '"Rain"') {
-                    icon.addClass("fas fa-cloud-rain fa-3x");
-                };
-
-                // Temperature;
-                var fiveT = localStorage.getItem("fiveTemp" + i);
-                tempP.text("Temperature:" + fiveT);
-                tempP.addClass("mt-3");
-                tempP.appendTo(div);
-
-                // Humidity;
-                var fiveH = localStorage.getItem("fiveHumidity" + i);
-                humidity.text("Humidity:" + fiveH);
-                humidity.appendTo(div);
-            }
-        };
+        // Humidity;
+        var fiveH = localStorage.getItem("fiveHumidity" + i);
+        humidity.text("Humidity:" + fiveH);
+        humidity.appendTo(div);
+    }
+};
     };
-    formEl.addEventListener('submit', formSubmitHandler);
+formEl.addEventListener('submit', formSubmitHandler);
 });
