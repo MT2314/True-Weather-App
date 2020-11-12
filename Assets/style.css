@@ -9,26 +9,26 @@
 
 /* Row 1 */
 .row-1{
-    height:75vh;
 
-}
+    position: relative;
+    height:auto;
+    top: 5vh;
+
+};
+
 /* Side Bar */
 .popcity{
     text-align: center;
 }
+
 .wrapper {
     position: relative;
     display: flex;
-    top: 10vh;
     width: 100%;
     align-items: stretch;
 }
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-}
+
 
 /* Today's Weather */
 
@@ -58,4 +58,9 @@
 }
 
 
-
+/* Five Weather */
+.row-2{
+    position: relative;
+    height:auto;
+    margin-top: 10vh;
+}
