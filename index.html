@@ -53,7 +53,7 @@
             <!-- 
 
              -->
-            <div class="col-9-md" id = "todayWeather" >
+            <div class="col-9-md" id="todayWeather">
                 <!-- Card -->
                 <div class="card weather-card">
                     <!-- Card content -->
@@ -64,8 +64,8 @@
                         <!-- Text -->
                         <p class="card-text"></p>
                         <div class="flex justify-content-between ">
-                            <p class="display-3 nowDegree" id="nowDegree"></p>
-                            
+                            <div id = "todayIcon"></div>
+                            <p><i class="fas fa-fire fa-2x grey-text pr-2"></i><span id="temp"></span> &degC</p>
                             <p><i class="fas fa-leaf fa-lg grey-text pr-2"></i><span id="wind"></span> km/h &nbsp Winds
                             </p>
                             <p class="mr-1"><i class="fa fa-water fa-lg grey-text pr-2 "></i><span class=" "
@@ -73,30 +73,16 @@
                             <p><i class="fa fa-sun fa-lg grey-text pr-2 "></i><span class="uvIndex"
                                     id="uvIndex"></span>U/V Index</p>
                         </div>
-                        <div class="progress md-progress">
-                            <div class="progress-bar black" role="progressbar" style="width: 50%" aria-valuemin="0"
-                                aria-valuemax="100"></div>
-                        </div>
-                        <ul class="list-unstyled d-flex justify-space-between font-small text-muted mb-4">
-                            <li class="pl-4">8AM</li>
-                            <li>11AM</li>
-                            <li>2PM</li>
-                            <li>5PM</li>
-                            <li class="pr-4">8PM</li>
-                        </ul>
-
-
                     </div>
                 </div>
             </div>
         </div>
+            <!-- 5 DAY FORECAST ROW-->
+            <div class="row row-2">
+                <div class="col-md-12">
 
-        <!-- 5 DAY FORECAST ROW-->
-        <div class="row row-2">
-            <div class="col-md-12">
-
-                <!-- CARDS -->
-                <div class="container d-flex justify-content-center fiveCardsCont" id="fiveCardsCont">
+                    <!-- CARDS -->
+                    <div class="container d-flex justify-content-center fiveCardsCont" id="fiveCardsCont">
                         <!-- Dynamic 5 Weather Cards -->
                     </div>
                 </div>

@@ -185,6 +185,18 @@ $(document).ready(function () {
 
         // Display Todays Weather
         var displayTodayWeather = function (m) {
+            // var todayIcon = localStorage.getItem("todayIcon");
+            // var ticonCont = $("<div>");
+            // var ticon = $("<i>");
+            // ticonCont.appendTo(todayIcon);
+            // ticon.appendTo(ticonCont);
+            // if (iconWeather == '"Clear"') {
+            //     ticon.addClass("fas fa-sun fa-3x");
+            // } else if (iconWeather == '"Clouds"') {
+            //     ticon.addClass("fas fa-cloud fa-3x");
+            // } else if (iconWeather == '"Rain"') {
+            //     ticon.addClass("fas fa-cloud-rain fa-3x");
+            // };
             var todayWeather = document.getElementById('todayWeather');
             todayWeather.style.display = "block";
             var name = localStorage.getItem("city");
